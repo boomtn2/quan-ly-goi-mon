@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quan_ly_goi_mon/controller/controller_taikhoan.dart';
 import 'package:quan_ly_goi_mon/screens/screen_quan_ly_ban/screen_quan_ly_ban.dart';
+import 'package:quan_ly_goi_mon/screens/screen_quan_ly_taikhoan/screen_qly_taikhoan.dart';
 import 'package:quan_ly_goi_mon/screens/screen_quanly_do/screen_quanly_do.dart';
 
 import '../screen_quan_ly_the_loai/screen_qltl.dart';
@@ -88,7 +89,15 @@ class ScreenTaiKhoan extends StatelessWidget {
                         Get.to(() => const ScreenQuanLyTheLoai());
                       },
                       child: textButton(
-                        text: "Quản thể loại",
+                        text: "Quản lý thể loại",
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const ScreenQuanLyTaiKhoan());
+                      },
+                      child: textButton(
+                        text: "Quản lý tài khoản",
                       ),
                     ),
                   ],

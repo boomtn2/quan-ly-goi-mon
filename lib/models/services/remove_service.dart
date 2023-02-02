@@ -229,6 +229,28 @@ class RemoteServies {
     }
   }
 
+  static Future<String> getDSTaiKhoan() async {
+    String stConnection = "$urlAPI/read_ds_taikhoan.php";
+    try {
+      var response = await http.post(Uri.parse(stConnection)).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
+
+      return response.body;
+    } on TimeoutException catch (_) {
+      // A timeout occurred.
+      return "404";
+    } on SocketException catch (_) {
+      // Other exception
+      return "404";
+    } catch (e) {
+      return "404";
+    }
+  }
+
   static Future<ThongKe> getThongKe(
       {required String ngay, required String ngayNow}) async {
     String stConnection = "$urlAPI/read_tk_ngay.php";

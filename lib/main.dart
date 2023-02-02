@@ -7,9 +7,6 @@ import 'package:quan_ly_goi_mon/controller/controller_mon.dart';
 import 'package:quan_ly_goi_mon/controller/controller_oder.dart';
 import 'package:quan_ly_goi_mon/controller/controller_thongke.dart';
 import 'package:quan_ly_goi_mon/screens/screen_login/screen_login.dart';
-import 'screens/screen_bep/screen_bep.dart';
-import 'screens/screen_thongke/screen_thongke.dart';
-import 'screens/screens_room/screen_room.dart';
 
 void main() {
   runApp(MyApp());

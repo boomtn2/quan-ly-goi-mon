@@ -12,6 +12,7 @@ class ControllerTaiKhoan extends GetxController {
       matKhau: "",
       theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
   String thongBao = "";
+  var danhSachTaiKhoan = <TaiKhoan>[].obs;
 
   void rsThongTinTaiKhoan() {
     thongTinTaiKhoan = TaiKhoan(
@@ -19,6 +20,27 @@ class ControllerTaiKhoan extends GetxController {
         taiKhoan: "",
         matKhau: "",
         theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
+  }
+
+  void getDSTaiKhoan() async {
+    var login = await RemoteServies.getDSTaiKhoan();
+    rsThongTinTaiKhoan();
+    if (login.compareTo('404') != 0) {
+      try {
+        var objsJson = jsonDecode(login) as List;
+
+        if (json != null) {
+          danhSachTaiKhoan.value =
+              objsJson.map((tagJson) => TaiKhoan.fromMap(tagJson)).toList();
+          thongBao = thongBaoServer['1'] ?? '';
+        } else {
+          thongBao = thongBaoServer['0'] ?? '';
+        }
+      } catch (e) {
+        thongBao = "Lỗi code :(";
+      }
+    }
+    thongBao = thongBaoServer['404'] ?? '';
   }
 
   Future<bool> login(
