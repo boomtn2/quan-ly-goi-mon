@@ -13,7 +13,7 @@ class ControllerTaiKhoan extends GetxController {
       theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
   String thongBao = "";
   var danhSachTaiKhoan = <TaiKhoan>[].obs;
-
+  late TaiKhoan tempTaiKhoan = defaultTaiKhoan();
   void rsThongTinTaiKhoan() {
     thongTinTaiKhoan = TaiKhoan(
         id: "",
@@ -22,9 +22,65 @@ class ControllerTaiKhoan extends GetxController {
         theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
   }
 
+  TaiKhoan defaultTaiKhoan() {
+    return TaiKhoan(
+        id: "",
+        taiKhoan: "",
+        matKhau: "",
+        theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
+  }
+
+  Future<String> xoaTaiKhoan() async {
+    String reponse = "";
+    reponse = await RemoteServies.deleteTaiKhoan(taiKhoan: tempTaiKhoan);
+    if (reponse.compareTo("1") == 0) {
+      return thongBaoServer['1'] ?? '';
+    }
+    if (reponse.compareTo("0") == 0) {
+      return thongBaoServer['0'] ?? '';
+    }
+
+    if (reponse.compareTo("404") == 0) {
+      return thongBaoServer['404'] ?? '';
+    }
+    return 'Lỗi rồi';
+  }
+
+  Future<String> suaTaiKhoan() async {
+    String reponse = "";
+    reponse = await RemoteServies.updateTaiKhoan(taiKhoan: tempTaiKhoan);
+    if (reponse.compareTo("1") == 0) {
+      return thongBaoServer['1'] ?? '';
+    }
+    if (reponse.compareTo("0") == 0) {
+      return thongBaoServer['0'] ?? '';
+    }
+
+    if (reponse.compareTo("404") == 0) {
+      return thongBaoServer['404'] ?? '';
+    }
+    return 'Lỗi rồi';
+  }
+
+  Future<String> themTaiKhoan() async {
+    String reponse = "";
+    reponse = await RemoteServies.insertTaiKhoan(taiKhoan: tempTaiKhoan);
+    if (reponse.compareTo("1") == 0) {
+      return thongBaoServer['1'] ?? '';
+    }
+    if (reponse.compareTo("0") == 0) {
+      return thongBaoServer['0'] ?? '';
+    }
+
+    if (reponse.compareTo("404") == 0) {
+      return thongBaoServer['404'] ?? '';
+    }
+    return 'Lỗi rồi';
+  }
+
   void getDSTaiKhoan() async {
     var login = await RemoteServies.getDSTaiKhoan();
-    rsThongTinTaiKhoan();
+
     if (login.compareTo('404') != 0) {
       try {
         var objsJson = jsonDecode(login) as List;

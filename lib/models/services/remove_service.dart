@@ -7,6 +7,7 @@ import 'package:quan_ly_goi_mon/models/chi_tiet_goi_do.dart';
 import 'package:quan_ly_goi_mon/models/combo.dart';
 import 'package:quan_ly_goi_mon/models/do.dart';
 import 'package:quan_ly_goi_mon/models/goi_do.dart';
+import 'package:quan_ly_goi_mon/models/tai_khoan.dart';
 import 'package:quan_ly_goi_mon/models/the_loai_ban.dart';
 import 'package:quan_ly_goi_mon/models/thong_ke.dart';
 import 'package:quan_ly_goi_mon/models/class_default/date_time_get.dart';
@@ -233,6 +234,78 @@ class RemoteServies {
     String stConnection = "$urlAPI/read_ds_taikhoan.php";
     try {
       var response = await http.post(Uri.parse(stConnection)).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
+
+      return response.body;
+    } on TimeoutException catch (_) {
+      // A timeout occurred.
+      return "404";
+    } on SocketException catch (_) {
+      // Other exception
+      return "404";
+    } catch (e) {
+      return "404";
+    }
+  }
+
+  static Future<String> insertTaiKhoan({required TaiKhoan taiKhoan}) async {
+    String stConnection = "$urlAPI/insert_taikhoan.php";
+    try {
+      var response = await http
+          .post(Uri.parse(stConnection), body: taiKhoan.toMap())
+          .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
+
+      return response.body;
+    } on TimeoutException catch (_) {
+      // A timeout occurred.
+      return "404";
+    } on SocketException catch (_) {
+      // Other exception
+      return "404";
+    } catch (e) {
+      return "404";
+    }
+  }
+
+  static Future<String> updateTaiKhoan({required TaiKhoan taiKhoan}) async {
+    String stConnection = "$urlAPI/update_taikhoan.php";
+    try {
+      var response = await http
+          .post(Uri.parse(stConnection), body: taiKhoan.toMap())
+          .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
+
+      return response.body;
+    } on TimeoutException catch (_) {
+      // A timeout occurred.
+      return "404";
+    } on SocketException catch (_) {
+      // Other exception
+      return "404";
+    } catch (e) {
+      return "404";
+    }
+  }
+
+  static Future<String> deleteTaiKhoan({required TaiKhoan taiKhoan}) async {
+    String stConnection = "$urlAPI/delete_taikhoan.php";
+    try {
+      var response = await http
+          .post(Uri.parse(stConnection), body: taiKhoan.toMap())
+          .timeout(
         const Duration(seconds: 5),
         onTimeout: () {
           return http.Response('404', 408);

@@ -1,5 +1,7 @@
 import 'package:awesome_select/awesome_select.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quan_ly_goi_mon/controller/controller_taikhoan.dart';
 
 List<S2Choice<String>> theLoaiTaiKhoan = [
   S2Choice(value: '1', title: 'nhân viên'),
@@ -8,8 +10,9 @@ List<S2Choice<String>> theLoaiTaiKhoan = [
 ];
 
 class WidgetFormInPutAccount extends StatefulWidget {
-  const WidgetFormInPutAccount({super.key});
+  const WidgetFormInPutAccount({super.key, required this.function});
 
+  final Function function;
   @override
   State<WidgetFormInPutAccount> createState() => _WidgetFormInPutAccountState();
 }
@@ -19,6 +22,16 @@ class _WidgetFormInPutAccountState extends State<WidgetFormInPutAccount> {
   final TextEditingController matKhauController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? _theLoai = '';
+  final _controllerTaiKhoan = Get.find<ControllerTaiKhoan>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    taiKhoanController.text = _controllerTaiKhoan.tempTaiKhoan.taiKhoan;
+    matKhauController.text = _controllerTaiKhoan.tempTaiKhoan.matKhau;
+    _theLoai = _controllerTaiKhoan.tempTaiKhoan.theLoaiTaiKhoan.tenTheLoai;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +90,7 @@ class _WidgetFormInPutAccountState extends State<WidgetFormInPutAccount> {
                     hintText: 'Nhập mật khẩu',
                     labelText: 'mật khẩu',
                   ),
-                  controller: taiKhoanController,
+                  controller: matKhauController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Chưa nhập tên';
@@ -96,6 +109,8 @@ class _WidgetFormInPutAccountState extends State<WidgetFormInPutAccount> {
                   choiceItems: theLoaiTaiKhoan,
                   onChange: (selected) => setState(() {
                     _theLoai = selected.value;
+                    _controllerTaiKhoan.tempTaiKhoan.theLoaiTaiKhoan.id =
+                        _theLoai ?? '';
                   }),
                   modalType: S2ModalType.popupDialog,
                   tileBuilder: (context, state) {
@@ -106,6 +121,25 @@ class _WidgetFormInPutAccountState extends State<WidgetFormInPutAccount> {
                   },
                 ),
               ),
+            ),
+            Card(
+              color: Colors.blue,
+              child: TextButton(
+                  onPressed: () async {
+                    bool? isValidated = formKey.currentState?.validate();
+
+                    if (isValidated == true) {
+                      _controllerTaiKhoan.tempTaiKhoan.taiKhoan =
+                          taiKhoanController.text;
+                      _controllerTaiKhoan.tempTaiKhoan.taiKhoan =
+                          taiKhoanController.text;
+                      widget.function();
+                    }
+                  },
+                  child: Text(
+                    "Lưu",
+                    style: TextStyle(color: Colors.white),
+                  )),
             ),
           ],
         ));
