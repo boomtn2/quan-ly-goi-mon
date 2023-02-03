@@ -14,6 +14,20 @@ class ControllerBep extends GetxController {
   void fetchData() async {
     dsOder.value = await RemoteServies.getCTGD(ngay: GetDateTime.getDateNow());
     fillFood();
+    update();
+  }
+
+  void updateTrangThaiCTHD(
+      {required String id,
+      required String soLuong,
+      required String trangThai}) async {
+    String reponse = await RemoteServies.updateTrangThaiCTGD(
+        id: id, soLuongPV: soLuong, trangThai: trangThai);
+    if (reponse.compareTo('404') != 0 && reponse.compareTo('1') == 0) {
+      thongBao = "Thành công";
+    } else {
+      thongBao = "Thất bại";
+    }
   }
 
   void updateCTHD(

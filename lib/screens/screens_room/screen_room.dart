@@ -21,6 +21,7 @@ class _ScreenRoomState extends State<ScreenRoom> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    controllerBan.data();
     timeAuto = Timer.periodic(const Duration(seconds: 5), (timer) async {
       controllerBan.fetchBan();
     });

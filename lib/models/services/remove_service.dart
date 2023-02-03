@@ -455,6 +455,25 @@ class RemoteServies {
     return st;
   }
 
+  static Future<String> updateTrangThaiCTGD(
+      {required String id,
+      required String soLuongPV,
+      required String trangThai}) async {
+    String stConnection = "$urlAPI/update_trangthai_ctgd.php";
+    var response = await http.post(Uri.parse(stConnection), body: {
+      "id": id,
+      "trangThai": trangThai,
+    }).timeout(
+      const Duration(seconds: 20),
+      onTimeout: () {
+        return http.Response("404", 404);
+      },
+    );
+
+    String st = response.body.trim();
+    return st;
+  }
+
   static Future<String> insertBan(
       {required String id,
       required String soTT,

@@ -25,11 +25,6 @@ class ControllerBan extends GetxController {
       idTheLoai: TheLoaiBan(id: "", moTa: "", tenTheLoai: ""),
       goido: null,
       trangThai: "");
-  @override
-  void onInit() {
-    data();
-    super.onInit();
-  }
 
   Ban setDefautTable() {
     return Ban(
