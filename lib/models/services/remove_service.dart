@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:quan_ly_goi_mon/key_spref.dart';
 import 'package:quan_ly_goi_mon/models/bep.dart';
 import 'package:quan_ly_goi_mon/models/chi_tiet_goi_do.dart';
 import 'package:quan_ly_goi_mon/models/combo.dart';
@@ -11,12 +12,27 @@ import 'package:quan_ly_goi_mon/models/tai_khoan.dart';
 import 'package:quan_ly_goi_mon/models/the_loai_ban.dart';
 import 'package:quan_ly_goi_mon/models/thong_ke.dart';
 import 'package:quan_ly_goi_mon/models/class_default/date_time_get.dart';
+import 'package:quan_ly_goi_mon/spref.dart';
 
 class RemoteServies {
   //static var client = http.http();
 
   static String ipServer = "192.168.1.62";
   static String urlAPI = "http://$ipServer/oder_food_api";
+
+  static setUrlAPI() {
+    urlAPI = "http://$ipServer/oder_food_api";
+  }
+
+  static getIP() async {
+    var data = SPref.instance;
+    String? ip = await data.getString(ipKey);
+    setUrlAPI();
+    if (ip != null) {
+      ipServer = ip;
+      print(ipServer);
+    }
+  }
 
   static Future<String> login(
       {required String taiKhoan, required String matKhau}) async {
@@ -88,6 +104,34 @@ class RemoteServies {
 
   static Future<List<Bep>> getCTGD({required String ngay}) async {
     String stConnection = "$urlAPI/read_ctgd.php";
+
+    try {
+      var response = await http
+          .post(Uri.parse(stConnection), body: {'ngay': ngay}).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 404);
+        },
+      );
+
+      var banObjsJson = jsonDecode(response.body) as List;
+      List<Bep> banObjects =
+          banObjsJson.map((tagJson) => Bep.fromJson(tagJson)).toList();
+
+      return banObjects;
+    } on TimeoutException catch (_) {
+      // A timeout occurred.
+      return [];
+    } on SocketException catch (_) {
+      // Other exception
+      return [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  static Future<List<Bep>> getCTGDFillBep({required String ngay}) async {
+    String stConnection = "$urlAPI/read_fill_ctgd.php";
 
     try {
       var response = await http
@@ -354,7 +398,12 @@ class RemoteServies {
     try {
       var response = await http.post(Uri.parse(stConnection), body: {
         "ngay": ngay,
-      });
+      }).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
       var banObjsJson = jsonDecode(response.body);
 
       ThongKe banObjects = ThongKe.fromJson(banObjsJson);
@@ -369,8 +418,15 @@ class RemoteServies {
       {required Goido goimon, required String idBan}) async {
     String stConnection = "$urlAPI/insert_oder.php";
     try {
-      var response = await http.post(Uri.parse(stConnection),
-          body: goimon.toJson(idBan: idBan));
+      var response = await http
+          .post(Uri.parse(stConnection), body: goimon.toJson(idBan: idBan))
+          .timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
+      ;
 
       String st = response.body.trim();
       if (st.compareTo("1") == 0) {
@@ -392,7 +448,12 @@ class RemoteServies {
         "idDo": chiTietGoiMon.doo.id,
         "idGoiDo": idGoiMon,
         "thoiGian": GetDateTime.getTimeNow()
-      });
+      }).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
 
       String st = response.body.trim();
       return st;
@@ -406,7 +467,12 @@ class RemoteServies {
     try {
       var response = await http.post(Uri.parse(stConnection), body: {
         "idGoiDo": idGoiMon,
-      });
+      }).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          return http.Response('404', 408);
+        },
+      );
       String st = response.body.trim();
       return st;
     } on TimeoutException catch (_) {
@@ -429,7 +495,12 @@ class RemoteServies {
       "idDo": idDo,
       "idGoiDo": idGoiMon,
       "soLuong": soLuong,
-    });
+    }).timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        return http.Response('404', 408);
+      },
+    );
 
     String st = response.body.trim();
     return st;

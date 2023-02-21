@@ -40,7 +40,7 @@ class ControllerThongKe extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    getData();
+    //getData();
     super.onInit();
   }
 

@@ -63,21 +63,28 @@ class _ScreenFillTimeState extends State<ScreenFillTime> {
                       } catch (e) {
                         soLuongT = 0;
                       }
-                      if (soLuongT.toString().compareTo(sL) == 0) {
-                        //Đã phục vụ xong
-                        controllerBep.updateCTHD(
-                            id: id,
-                            soLuong: soLuongT.toString(),
-                            trangThai: '3');
-                      } else {
-                        //Đang làm
-                        controllerBep.updateCTHD(
-                            id: id,
-                            soLuong: soLuongT.toString(),
-                            trangThai: '1');
-                      }
 
-                      Get.snackbar("Phục vụ", controllerBep.thongBao);
+                      if (int.parse(sLPV) > int.parse(sL)) {
+                        controllerBep.updateCTHD(
+                            id: id, soLuong: sL, trangThai: '3');
+                        Get.snackbar("Phục vụ", controllerBep.thongBao);
+                      } else {
+                        if (soLuongT.toString().compareTo(sL) == 0) {
+                          //Đã phục vụ xong
+                          controllerBep.updateCTHD(
+                              id: id,
+                              soLuong: soLuongT.toString(),
+                              trangThai: '3');
+                        } else {
+                          //Đang làm
+                          controllerBep.updateCTHD(
+                              id: id,
+                              soLuong: soLuongT.toString(),
+                              trangThai: '1');
+                        }
+
+                        Get.snackbar("Phục vụ", controllerBep.thongBao);
+                      }
                     });
               },
               child: const Card(
@@ -124,7 +131,7 @@ class _ScreenFillTimeState extends State<ScreenFillTime> {
                   ],
                 ),
               ),
-              subtitle: Text("${trangThaiDo[int.tryParse(trangThai)]}"),
+              subtitle: Text("${trangThaiDo[trangThai]}"),
             ),
           ),
         ));

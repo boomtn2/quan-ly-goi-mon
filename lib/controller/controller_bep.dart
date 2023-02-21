@@ -12,7 +12,8 @@ class ControllerBep extends GetxController {
 
   String thongBao = "";
   void fetchData() async {
-    dsOder.value = await RemoteServies.getCTGD(ngay: GetDateTime.getDateNow());
+    dsOder.value =
+        await RemoteServies.getCTGDFillBep(ngay: GetDateTime.getDateNow());
     fillFood();
     update();
   }

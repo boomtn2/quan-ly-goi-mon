@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quan_ly_goi_mon/controller/controller_oder.dart';
+import 'package:quan_ly_goi_mon/models/class_default/default.dart';
 
 import '../../../controller/controller_ban.dart';
 
@@ -80,7 +81,9 @@ class WidgetLichSuOder extends StatelessWidget {
                                                   .width /
                                               5,
                                           child: Center(
-                                              child: Text("${e.trangThai}")),
+                                              child: Text(
+                                                  trangThaiDo[e.trangThai] ??
+                                                      'lỗi')),
                                         ),
                                       ),
                                       DataCell(

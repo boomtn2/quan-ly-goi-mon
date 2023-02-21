@@ -49,11 +49,12 @@ class _ScreenLoginState extends State<ScreenLogin> {
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.replay_outlined),
                               onPressed: () {
-                                print(ipController.text);
+                                controllerTaiKhoan
+                                    .setIpServer(ipController.text);
                               },
                             )),
                         autofocus: true,
-                        mask: 'xxx.xxx.xxx.xxx.xxx',
+                        mask: 'xxx.xxx.xxxxxxxxxxx',
                         maxLength: 15,
                         keyboardType: TextInputType.number,
                         onChange: (String value) {},

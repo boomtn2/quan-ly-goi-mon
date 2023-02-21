@@ -30,8 +30,7 @@ class ControllerMon extends GetxController {
       combo: []);
   @override
   void onInit() {
-    // TODO: implement onInit
-    fetchMonAn();
+    //fetchMonAn();
     super.onInit();
   }
 

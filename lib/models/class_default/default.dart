@@ -28,11 +28,11 @@ Map<String, String> trangThaiMon = {
   '2': "Không bán"
 };
 
-Map<int, String> trangThaiDo = {
-  0: "Oder",
-  1: "Đang làm",
-  2: "Hết món",
-  3: "Đã xong"
+Map<String, String> trangThaiDo = {
+  '0': "Oder",
+  '1': "Đang làm",
+  '2': "Hết món",
+  '3': "Đã xong"
 };
 
 Map<int, String> theLoaiTK = {0: "", 1: "Nhân viên", 2: "Quản lý", 3: "Bếp"};

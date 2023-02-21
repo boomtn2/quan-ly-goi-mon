@@ -141,7 +141,7 @@ class ControllerBan extends GetxController {
           st = await RemoteServies.insertCTHD(
               idGoiMon: idGoiMon,
               idDo: element.doo.id,
-              soLuong: element.soLuong);
+              soLuong: element.soLuongPV);
           if (st.compareTo("404") == 0) {
             flagTB = true;
             thongBao = thongBaoServer['404'] ?? '';

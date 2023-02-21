@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:quan_ly_goi_mon/models/class_default/default.dart';
 import 'package:quan_ly_goi_mon/models/tai_khoan.dart';
 import 'package:quan_ly_goi_mon/models/services/remove_service.dart';
+import 'package:quan_ly_goi_mon/spref.dart';
+
+import '../key_spref.dart';
 
 class ControllerTaiKhoan extends GetxController {
+  String ipServer = "";
   TaiKhoan thongTinTaiKhoan = TaiKhoan(
       id: "",
       taiKhoan: "",
@@ -20,6 +24,14 @@ class ControllerTaiKhoan extends GetxController {
         taiKhoan: "",
         matKhau: "",
         theLoaiTaiKhoan: TheLoaiTaiKhoan(id: "", tenTheLoai: ""));
+  }
+
+  void setIpServer(String ip) {
+    ipServer = ip;
+    var data = SPref.instance;
+    RemoteServies.ipServer = ip;
+    data.setString(ipKey, 'ipServer');
+    RemoteServies.setUrlAPI();
   }
 
   TaiKhoan defaultTaiKhoan() {
@@ -104,6 +116,7 @@ class ControllerTaiKhoan extends GetxController {
     thongBao = "";
     var login = await RemoteServies.login(taiKhoan: taiKhoan, matKhau: matKhau);
     rsThongTinTaiKhoan();
+
     if (login.compareTo('404') != 0) {
       try {
         var json = jsonDecode(login)['login'];

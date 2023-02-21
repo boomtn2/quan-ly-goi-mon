@@ -16,6 +16,16 @@ class ScreenQlyMon extends StatefulWidget {
 }
 
 class _ScreenQlyMonState extends State<ScreenQlyMon> {
+  final _controller = Get.find<ControllerMon>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller.fetchMonAn();
+    _controller.fetchDM();
+    _controller.fetchTLM();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

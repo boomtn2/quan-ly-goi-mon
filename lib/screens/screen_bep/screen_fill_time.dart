@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -18,12 +20,15 @@ class _ScreenFillTimeState extends State<ScreenFillTime> {
     return GetX<ControllerBep>(
       builder: (controller) => ListView(
           children: controller.dsOder
-              .map((element) => foodOder(
-                  id: element.chiTietGoiDo.id,
-                  ten: element.chiTietGoiDo.doo.ten,
-                  sL: element.chiTietGoiDo.soLuong,
-                  trangThai: element.chiTietGoiDo.trangThai,
-                  thoiGian: "${element.tenBan}-${element.theLoaiBan}"))
+              .map((element) =>
+                  element.chiTietGoiDo.trangThai.compareTo('3') != 0
+                      ? foodOder(
+                          id: element.chiTietGoiDo.id,
+                          ten: element.chiTietGoiDo.doo.ten,
+                          sL: element.chiTietGoiDo.soLuong,
+                          trangThai: element.chiTietGoiDo.trangThai,
+                          thoiGian: "${element.tenBan}-${element.theLoaiBan}")
+                      : Container())
               .toList()),
     );
   }
@@ -75,7 +80,7 @@ class _ScreenFillTimeState extends State<ScreenFillTime> {
         child: GestureDetector(
           onTap: () {
             _controllerBep.updateTrangThaiCTHD(
-                id: id, soLuong: sL, trangThai: '1');
+                id: id, soLuong: '0', trangThai: '1');
             _controllerBep.fetchData();
           },
           child: Card(
