@@ -127,9 +127,11 @@ class ControllerTaiKhoan extends GetxController {
           return true;
         } else {
           thongBao = thongBaoServer['0'] ?? '';
+          return false;
         }
       } catch (e) {
         thongBao = "Lỗi code :(";
+        return false;
       }
     }
     thongBao = thongBaoServer['404'] ?? '';

@@ -151,7 +151,7 @@ class ControllerMon extends GetxController {
       dsMon.value = List<Do>.from(jsonD["monle"].map((x) => Do.fromJson(x)));
       dsCombo.value = List<Do>.from(jsonD["combo"].map((x) => Do.fromJson(x)));
     } catch (e) {
-      print("Lỗi json đồ");
+      print("Lỗi json mon an ");
     }
   }
 
@@ -163,7 +163,7 @@ class ControllerMon extends GetxController {
       dsTL.value =
           List<TheLoaiMon>.from(jsonD.map((x) => TheLoaiMon.fromJson(x)));
     } catch (e) {
-      print("Lỗi json đồ");
+      print("Lỗi json tlm");
     }
   }
 
@@ -174,7 +174,7 @@ class ControllerMon extends GetxController {
       var jsonD = jsonDecode(stJson);
       dsDM.value = List<DanhMuc>.from(jsonD.map((x) => DanhMuc.fromJson(x)));
     } catch (e) {
-      print("Lỗi json đồ");
+      print("Lỗi json dm");
     }
   }
 

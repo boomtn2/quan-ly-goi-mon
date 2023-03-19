@@ -101,8 +101,7 @@ class _WidgetDrinkState extends State<WidgetDrink> {
                           margin: EdgeInsets.all(2),
                           width: MediaQuery.of(context).size.width,
                           child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                              child: Wrap(
                             children: [
                               Text(
                                 "${widget.doUong.ten}",

@@ -54,7 +54,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
                               },
                             )),
                         autofocus: true,
-                        mask: 'xxx.xxx.xxxxxxxxxxx',
+                        mask: 'xxx.xxxxxxxxxxxxxxx',
                         maxLength: 15,
                         keyboardType: TextInputType.number,
                         onChange: (String value) {},
